@@ -12,7 +12,7 @@ namespace MyBlockchain.Server
         {
             facade.TryCreateFirstBlock();
 
-            Get["/blockchain"] = _ =>
+            Get["/blockchain.json"] = _ =>
             {
                 var nodeBlocks = facade.Sync();
                 var serializer = new JavaScriptSerializer();

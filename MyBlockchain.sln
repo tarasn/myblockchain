@@ -8,6 +8,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBlockchain.Tests", "MyBlockchain.Tests\MyBlockchain.Tests.csproj", "{D4FC4290-F61B-48E6-A51E-B14A2DC8ECB2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBlockchain.Server", "MyBlockchain.Server\MyBlockchain.Server.csproj", "{81040729-7EA5-4288-8E1E-47BF1EF2410D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{763D16F0-632F-478C-A348-5B1178592381} = {763D16F0-632F-478C-A348-5B1178592381}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBlockchain.Business", "MyBlockchain.Business\MyBlockchain.Business.csproj", "{87D099A0-5EB9-46C3-B403-898FC083650E}"
 EndProject

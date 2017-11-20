@@ -34,11 +34,16 @@ namespace MyBlockchain.Business
             if (!Directory.EnumerateFiles(DataPath, "*.json").Any())
             {
                 var block = Block.CreateFirstBlock();
-                var filename = $"{block.Index.ToString("D6")}.json";
-                var pathname = Path.Combine("chaindata", filename);
-                using(StreamWriter writer = File.CreateText(pathname))
-                    block.Save(writer);
+                SaveBlock(block);
             }
+        }
+
+        public static void SaveBlock(Block block)
+        {
+            var filename = $"{block.Index.ToString("D6")}.json";
+            var pathname = Path.Combine("chaindata", filename);
+            using (StreamWriter writer = File.CreateText(pathname))
+                block.Save(writer);
         }
 
         public List<Block> Sync()
