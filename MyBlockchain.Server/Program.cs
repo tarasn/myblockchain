@@ -1,12 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web.Script.Serialization;
+using MyBlockchain.Business;
+using Nancy;
 using Nancy.Hosting.Self;
 
 namespace MyBlockchain.Server
 {
+    public class BlockchainModule : NancyModule
+    {
+        public BlockchainModule(BlockchainFacade facade)
+        {
+            facade.TryCreateFirstBlock();
+
+            Get["/blockchain"] = _ =>
+            {
+                var nodeBlocks = facade.Sync();
+                var serializer = new JavaScriptSerializer();
+                return serializer.Serialize(nodeBlocks);
+            };
+        }
+    }
+
+
     class Program
     {
         static void Main(string[] args)

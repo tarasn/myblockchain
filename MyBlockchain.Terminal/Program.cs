@@ -11,6 +11,7 @@ namespace MyBlockchain.Terminal
     {
         static void Main(string[] args)
         {
+
             //Console.WriteLine(10.ToString("D6"));
             var chaindataPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "chaindata");
             if (!Directory.Exists(chaindataPath))
@@ -18,7 +19,9 @@ namespace MyBlockchain.Terminal
                 Directory.CreateDirectory(chaindataPath);
             }
             var block = Block.CreateFirstBlock();
-            block.Save();
+            //block.Save();
+
+            Console.WriteLine( DateTime.UtcNow.ToString("dd-MM-yyyy"));
             Console.ReadKey(false);
         }
     }
