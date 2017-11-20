@@ -28,10 +28,6 @@ namespace MyBlockchain.Business
             {
                 Hash = CreateSelfHash();
             }
-            if (string.IsNullOrEmpty(Nonce))
-            {
-                Nonce = "None";
-            }
         }
 
         private string CreateSelfHash()
@@ -44,7 +40,7 @@ namespace MyBlockchain.Business
         public string PrevHash { get; set; }
         public string Hash { get; set; }
         public string Data { get; set; }
-        public string Nonce { get; set; }
+        public int Nonce { get; set; }
 
         public string Header => $"{Index}{PrevHash}{Data}{Timestamp}{Nonce}";
 
@@ -67,7 +63,7 @@ namespace MyBlockchain.Business
                 Data = "First block data",
                 Hash = string.Empty,
                 PrevHash = string.Empty,
-                Nonce = "0"
+                Nonce = 0
             };
             return block;
         }
@@ -108,7 +104,7 @@ namespace MyBlockchain.Business
                     hashCode = (hashCode*397) ^ (obj.PrevHash != null ? obj.PrevHash.GetHashCode() : 0);
                     hashCode = (hashCode*397) ^ (obj.Hash != null ? obj.Hash.GetHashCode() : 0);
                     hashCode = (hashCode*397) ^ (obj.Data != null ? obj.Data.GetHashCode() : 0);
-                    hashCode = (hashCode*397) ^ (obj.Nonce != null ? obj.Nonce.GetHashCode() : 0);
+                    hashCode = (hashCode*397) ^ obj.Nonce.GetHashCode() ;
                     return hashCode;
                 }
             }

@@ -36,7 +36,7 @@ namespace MyBlockchain.Tests
             block.PrevHash = "123-prevhash-123";
             block.Hash = "123-hash-123";
             block.Data = "some data";
-            block.Nonce = "1232";
+            block.Nonce = 1232;
             return block;
         }
 
