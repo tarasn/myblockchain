@@ -9,7 +9,7 @@ namespace MyBlockchain.Server
 {
     public class BlockchainModule : NancyModule
     {
-        public BlockchainModule(BlockchainFacade facade)
+        public BlockchainModule(BlockFacade facade)
         {
             facade.TryCreateFirstBlock();
 

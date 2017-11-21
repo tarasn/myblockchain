@@ -1,26 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 
 namespace MyBlockchain.Business
 {
-    public class BlockchainFacade
+    public class BlockFacade
     {
-        public BlockchainFacade()
-        {
-        }
-
         public string DataPath
         {
             get
             {
                 return 
-                    Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "chaindata");
+                    Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), Constants.BlocksFolder);
             }
         }
 
@@ -41,8 +34,8 @@ namespace MyBlockchain.Business
         public static void SaveBlock(Block block)
         {
             var filename = $"{block.Index.ToString("D6")}.json";
-            var pathname = Path.Combine("chaindata", filename);
-            using (StreamWriter writer = File.CreateText(pathname))
+            var pathname = Path.Combine(Constants.BlocksFolder, filename);
+            using (var writer = File.CreateText(pathname))
                 block.Save(writer);
         }
 

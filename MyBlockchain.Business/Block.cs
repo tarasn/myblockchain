@@ -36,7 +36,7 @@ namespace MyBlockchain.Business
         }
 
         public int Index { get; set; }
-        public string Timestamp { get; set; }
+        public long Timestamp { get; set; }
         public string PrevHash { get; set; }
         public string Hash { get; set; }
         public string Data { get; set; }
@@ -51,7 +51,7 @@ namespace MyBlockchain.Business
 
         public override string ToString()
         {
-            return $"Block<PrevHash: {PrevHash}, Hash: {Hash}>";
+            return $"Block<Index: {Index}, Hash: {Hash}>";
         }
 
         public static Block CreateFirstBlock()
@@ -59,7 +59,7 @@ namespace MyBlockchain.Business
             var block = new Block
             {
                 Index = 0,
-                Timestamp = DateTime.UtcNow.ToString(TimestampFormat),
+                Timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
                 Data = "First block data",
                 Hash = string.Empty,
                 PrevHash = string.Empty,
@@ -77,6 +77,20 @@ namespace MyBlockchain.Business
             //var serializer = new JavaScriptSerializer();
             //var json = serializer.Serialize(this);
             //File.WriteAllText(pathname,json);
+        }
+
+        public bool IsValid()
+        {
+            UpdateHash();
+            var zeroPrefix = string.Empty.PadRight(Constants.NumZeros, '0');
+            if (Hash.StartsWith(zeroPrefix))
+                return true;
+            return false;
+        }
+
+        private void UpdateHash()
+        {
+            Hash = Helpers.CreateSHA256Hash(Header);
         }
 
         private sealed class BlockEqualityComparer : IEqualityComparer<Block>
@@ -109,6 +123,9 @@ namespace MyBlockchain.Business
                 }
             }
         }
+
+
+
 
         private static readonly IEqualityComparer<Block> BlockComparerInstance = new BlockEqualityComparer();
 

@@ -25,18 +25,33 @@ namespace MyBlockchain.Terminal
             //Console.WriteLine( DateTime.UtcNow.ToString("dd-MM-yyyy"));
             if (args.Any())
             {
+                var mf = new MiningFacade();
+                var bf = new BlockFacade();
                 switch (args[0])
                 {
                     case "m":
-                        var bf = new BlockchainFacade();
-                        bf.TryCreateFirstBlock();
-                        var lastBlock = bf.Sync().Last();
-                        var newBlock = new MiningFacade().Mine(lastBlock);
-                        BlockchainFacade.SaveBlock(newBlock);
+                        
+                        //bf.TryCreateFirstBlock();
+                        //var lastBlock = bf.Sync().Last();
+                        //var newBlock = mf.Mine(lastBlock);
+                        //BlockFacade.SaveBlock(newBlock);
+                        break;
+                    case "td":
+                        var firstBlock = Block.CreateFirstBlock();
+                        MiningFacade.MineHashAndNonce(firstBlock);
+                        Console.WriteLine(firstBlock.ToJson());
+                        var lastBlock = firstBlock;
+                        for (int i = 0; i < 5; i++)
+                        {
+                            var block = mf.Mine(lastBlock);
+                            Console.WriteLine(block.ToJson());
+                            lastBlock = block;
+                        }
+                        Console.WriteLine("Done");
                         break;
                 }
             }
-
+            
             Console.ReadKey(false);
         }
     }
