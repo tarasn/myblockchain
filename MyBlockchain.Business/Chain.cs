@@ -4,12 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 
 namespace MyBlockchain.Business
 {
     public class Chain
     {
         readonly List<Block> _blocks;
+        readonly JavaScriptSerializer _serializer = new JavaScriptSerializer();
 
         public Chain(IEnumerable<Block> blocks)
         {
@@ -57,13 +59,14 @@ namespace MyBlockchain.Business
 
         public void AddBlock(Block block)
         {
-            throw new NotImplementedException();
+            if(block.Index==_blocks.Last().Index+1)
+                _blocks.Add(block);
         }
 
 
         public void Save(TextWriter textWriter)
         {
-            throw new NotImplementedException();
+            textWriter.Write(_serializer.Serialize(_blocks));
         }
 
     }

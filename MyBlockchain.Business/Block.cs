@@ -1,4 +1,5 @@
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.IO;
 using System.Web.Script.Serialization;
@@ -14,6 +15,7 @@ namespace MyBlockchain.Business
         public Block()
         {
         }
+
         public Block(string json)
         {
             var block = _serializer.Deserialize<Block>(json);
