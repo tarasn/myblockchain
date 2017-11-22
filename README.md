@@ -1,2 +1,2 @@
 # myblockchain
-A trivial implementation of blockchain in .Net based on posts from bigishdata.com(ported from python)
+A trivial implementation of blockchain in .Net based on python code from bigishdata.com
