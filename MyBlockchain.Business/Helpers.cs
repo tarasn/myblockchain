@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace MyBlockchain.Business
@@ -22,5 +23,7 @@ namespace MyBlockchain.Business
             }
             return sb.ToString();
         }
+
+      
     }
 }
