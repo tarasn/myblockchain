@@ -35,5 +35,21 @@ namespace MyBlockchain.Tests
             var chain = new Chain(new[] { _block1, _block2 });
             Assert.IsTrue(chain.IsValid());
         }
+
+        [Test]
+        public void ReturnTrueWhenChainLargerThanAnother()
+        {
+            var c0 = new Chain(new [] {_block0,_block1,_block2});
+            var c1 = new Chain(new [] {_block0,_block1});
+            Assert.IsTrue(c0>c1);
+        }
+
+        [Test]
+        public void ReturnFalseWhenChainIsLessThanAnother()
+        {
+            var c0 = new Chain(new[] { _block0, _block1, _block2 });
+            var c1 = new Chain(new[] { _block0, _block1 });
+            Assert.IsFalse(c0 < c1);
+        }
     }
 }

@@ -22,6 +22,11 @@ Try {
             [system.io.directory]::Delete($nodepath, 1);
         }
         [system.io.directory]::CreateDirectory($nodepath)
+        for($j=0; $j -lt $peersnum; $j++) {
+            if ($i -ne $j){
+                Add-Content -Value "http://127.0.0.1:500$j/blockchain.json" -Path "$nodepath\nodes.txt"        
+            }
+        }
         xcopy "$nodeexecutables\*.*" "$nodepath\*"  /F /R /Y /EXCLUDE:"xcopy-excluded-files.txt"
         start-process "$nodepath\MyBlockchain.Server.exe" -ArgumentList "500$i" 
     }

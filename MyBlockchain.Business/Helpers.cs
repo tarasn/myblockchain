@@ -1,21 +1,20 @@
-﻿using System;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
 namespace MyBlockchain.Business
 {
     public static class Helpers
     {
-        private static readonly SHA256CryptoServiceProvider _cryptoServiceProvider;
+        private static readonly SHA256CryptoServiceProvider CryptoServiceProvider;
 
         static Helpers()
         {
-            _cryptoServiceProvider = new SHA256CryptoServiceProvider();
+            CryptoServiceProvider = new SHA256CryptoServiceProvider();
         }
 
         public static string CreateSHA256Hash(string text)
         {
-            var hashBytes = _cryptoServiceProvider.ComputeHash(Encoding.UTF8.GetBytes(text));
+            var hashBytes = CryptoServiceProvider.ComputeHash(Encoding.UTF8.GetBytes(text));
             var sb = new StringBuilder();
             foreach (var hashByte in hashBytes)
             {

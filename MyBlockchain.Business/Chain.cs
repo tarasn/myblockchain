@@ -66,5 +66,16 @@ namespace MyBlockchain.Business
             textWriter.Write(_serializer.Serialize(_blocks));
         }
 
+
+        public static bool operator >(Chain c0, Chain c1)
+        {
+            return c0._blocks.Count > c1._blocks.Count;
+        }
+
+        public static bool operator <(Chain c0, Chain c1)
+        {
+            return c0._blocks.Count < c1._blocks.Count;
+        }
+
     }
 }
