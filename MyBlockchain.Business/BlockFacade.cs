@@ -8,7 +8,7 @@ namespace MyBlockchain.Business
 {
     public class BlockFacade
     {
-        public string DataPath
+        public static string DataPath
         {
             get
             {
@@ -34,7 +34,7 @@ namespace MyBlockchain.Business
         public static void SaveBlock(Block block)
         {
             var filename = $"{block.Index.ToString("D6")}.json";
-            var pathname = Path.Combine(Constants.BlocksFolder, filename);
+            var pathname = Path.Combine(DataPath, filename);
             using (var writer = File.CreateText(pathname))
                 block.Save(writer);
         }

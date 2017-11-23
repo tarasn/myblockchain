@@ -35,7 +35,7 @@ namespace MyBlockchain.Server
             using (var host = new NancyHost(new Uri($"http://localhost:{port}")))
             {
                 host.Start();
-                Console.WriteLine("$Running on http://localhost:{port}");
+                Console.WriteLine($"Running on http://localhost:{port}");
                 Console.ReadLine();
             }
         }
