@@ -2,6 +2,7 @@ $peersnum = 5
 $startport = 5000
 $nodesdir = "c:\blockchain-nodes\"
 $nodeexecutables = "MyBlockchain.Server\bin\Debug"
+$nodeterminal = "MyBlockchain.Terminal\bin\Debug"
 
 $cmdargs = @(
     "--peersnum=$peersnum",
@@ -28,6 +29,7 @@ Try {
             }
         }
         xcopy "$nodeexecutables\*.*" "$nodepath\*"  /F /R /Y /EXCLUDE:"xcopy-excluded-files.txt"
+        xcopy "$nodeterminal\*.*" "$nodepath\*"  /F /R /Y /EXCLUDE:"xcopy-excluded-files.txt"
         start-process "$nodepath\MyBlockchain.Server.exe" -ArgumentList "500$i" 
     }
 

@@ -56,19 +56,7 @@ namespace MyBlockchain.Business
             return $"Block<Index: {Index}, Hash: {Hash}>";
         }
 
-        public static Block CreateFirstBlock()
-        {
-            var block = new Block
-            {
-                Index = 0,
-                Timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
-                Data = "First block data",
-                Hash = string.Empty,
-                PrevHash = string.Empty,
-                Nonce = 0
-            };
-            return block;
-        }
+        
 
 
         public void Save(TextWriter textWriter)

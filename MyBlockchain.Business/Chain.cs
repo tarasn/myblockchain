@@ -60,6 +60,10 @@ namespace MyBlockchain.Business
                 _blocks.Add(block);
         }
 
+        public Block Last()
+        {
+            return _blocks.LastOrDefault();
+        }
 
         public void Save(TextWriter textWriter)
         {
