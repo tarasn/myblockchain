@@ -46,6 +46,7 @@
     <Compile Include="BlockFacade.cs" />
     <Compile Include="Chain.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Genesis.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="MiningFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

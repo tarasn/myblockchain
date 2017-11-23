@@ -60,10 +60,25 @@ namespace MyBlockchain.Business
                 _blocks.Add(block);
         }
 
+        public Block Last()
+        {
+            return _blocks.LastOrDefault();
+        }
 
         public void Save(TextWriter textWriter)
         {
             textWriter.Write(_serializer.Serialize(_blocks));
+        }
+
+
+        public static bool operator >(Chain c0, Chain c1)
+        {
+            return c0._blocks.Count > c1._blocks.Count;
+        }
+
+        public static bool operator <(Chain c0, Chain c1)
+        {
+            return c0._blocks.Count < c1._blocks.Count;
         }
 
     }

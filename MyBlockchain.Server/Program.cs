@@ -1,28 +1,9 @@
 ﻿using System;
 using System.Linq;
-using System.Web.Script.Serialization;
-using MyBlockchain.Business;
-using Nancy;
 using Nancy.Hosting.Self;
 
 namespace MyBlockchain.Server
 {
-    public class BlockchainModule : NancyModule
-    {
-        public BlockchainModule(BlockFacade facade)
-        {
-            facade.TryCreateFirstBlock();
-
-            Get["/blockchain.json"] = _ =>
-            {
-                var nodeBlocks = facade.Sync();
-                var serializer = new JavaScriptSerializer();
-                return serializer.Serialize(nodeBlocks);
-            };
-        }
-    }
-
-
     class Program
     {
         static void Main(string[] args)
@@ -32,10 +13,10 @@ namespace MyBlockchain.Server
             {
                 int.TryParse(args[0], out port);
             }
-            using (var host = new NancyHost(new Uri($"http://localhost:{port}")))
+            using (var host = new NancyHost(new Uri($"http://127.0.0.1:{port}")))
             {
                 host.Start();
-                Console.WriteLine($"Running on http://localhost:{port}");
+                Console.WriteLine($"Running on http://127.0.0.1:{port}");
                 Console.ReadLine();
             }
         }

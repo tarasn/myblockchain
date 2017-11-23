@@ -18,18 +18,7 @@ namespace MyBlockchain.Business
         }
 
 
-        public void TryCreateFirstBlock()
-        {
-            if (!Directory.Exists(DataPath))
-            {
-                Directory.CreateDirectory(DataPath);
-            }
-            if (!Directory.EnumerateFiles(DataPath, "*.json").Any())
-            {
-                var block = Block.CreateFirstBlock();
-                SaveBlock(block);
-            }
-        }
+       
 
         public static void SaveBlock(Block block)
         {
