@@ -1,0 +1,3 @@
+vshost
+.xml
+.pdb

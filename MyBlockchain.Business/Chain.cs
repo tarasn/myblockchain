@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 
 namespace MyBlockchain.Business
@@ -20,7 +17,7 @@ namespace MyBlockchain.Business
 
         public bool IsValid()
         {
-            for (int i = 1; i < _blocks.Count; i++)
+            for (var i = 1; i < _blocks.Count; i++)
             {
                 var prevBlock = _blocks[i - 1];
                 if (prevBlock.Index+1!=_blocks[i].Index)
