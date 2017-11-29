@@ -56,17 +56,10 @@ namespace MyBlockchain.Business
             return $"Block<Index: {Index}, Hash: {Hash}>";
         }
 
-        
 
-
-        public void Save(TextWriter textWriter)
+        public void Save()
         {
-            textWriter.Write(_serializer.Serialize(this));
-            //var filename = $"{Index.ToString("D6")}.json";
-            //var pathname = Path.Combine("chaindata", filename);
-            //var serializer = new JavaScriptSerializer();
-            //var json = serializer.Serialize(this);
-            //File.WriteAllText(pathname,json);
+           SaveBlock(this);
         }
 
         public bool IsValid()
@@ -77,6 +70,16 @@ namespace MyBlockchain.Business
                 return true;
             return false;
         }
+
+        public static void SaveBlock(Block block)
+        {
+            var filename = $"{block.Index.ToString("D6")}.json";
+            var pathname = Path.Combine(SyncFacade.DataPath, filename);
+            var serializer = new JavaScriptSerializer();
+            var json = serializer.Serialize(block);
+            File.WriteAllText(pathname, json);
+        }
+
 
         private void UpdateHash()
         {

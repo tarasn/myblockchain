@@ -50,7 +50,7 @@ namespace MyBlockchain.Server
                 var cmd = Console.ReadLine();
                 if (cmd.ToLower() == "q")
                     run = false;
-                else
+                else if (!string.IsNullOrWhiteSpace(cmd))
                     ExecuteCommand(cmd);
             }
             cts.Cancel();
@@ -59,10 +59,15 @@ namespace MyBlockchain.Server
 
         private static void MineBlock(string obj)
         {
-            var bf = new BlockFacade();
+            var sf = new SyncFacade();
             var firstBlockCreated = new Genesis().TryGenerateFirstBlock();
-
-
+            if (!firstBlockCreated)
+            {
+                var currentChain = sf.SyncLocal();
+                var lastBlock = currentChain.Last();
+                var minedBlock = MiningFacade.Mine(lastBlock);
+                minedBlock.Save();
+            }
         }
 
         private static void ExecuteCommand(string cmd)

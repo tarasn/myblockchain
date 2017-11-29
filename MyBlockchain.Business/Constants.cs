@@ -8,7 +8,8 @@ namespace MyBlockchain.Business
 {
     public class Constants
     {
-        public const int NumZeros = 5;
+        public const int NumZeros = 3;
         public const string BlocksFolder = "chaindata";
+        public const string NodesFile = "nodes.txt";
     }
 }
