@@ -56,7 +56,12 @@ namespace MyBlockchain.Business
 
         public void AddBlock(Block block)
         {
-            if(block.Index==_blocks.Last().Index+1)
+            if (block.Index == 0 && !_blocks.Any())
+            {
+                _blocks.Add(block);
+                return;
+            }
+            if (block.Index==_blocks.Last().Index+1)
                 _blocks.Add(block);
         }
 
@@ -65,11 +70,13 @@ namespace MyBlockchain.Business
             return _blocks.LastOrDefault();
         }
 
-        public void Save(TextWriter textWriter)
+        public void Save()
         {
-            textWriter.Write(_serializer.Serialize(_blocks));
+            foreach (var block in _blocks)
+            {
+                block.Save();
+            }
         }
-
 
         public static bool operator >(Chain c0, Chain c1)
         {
@@ -81,5 +88,10 @@ namespace MyBlockchain.Business
             return c0._blocks.Count < c1._blocks.Count;
         }
 
+
+        public IEnumerable<Block> Blocks
+        {
+            get { return _blocks; }
+        }
     }
 }

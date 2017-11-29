@@ -6,13 +6,13 @@ namespace MyBlockchain.Server
 {
     public class NodeModule : NancyModule
     {
-        public NodeModule(BlockFacade facade)
+        public NodeModule(SyncFacade facade)
         {
             Get["/blockchain.json"] = _ =>
             {
-                var nodeBlocks = facade.Sync();
+                var chain = facade.SyncLocal();
                 var serializer = new JavaScriptSerializer();
-                return serializer.Serialize(nodeBlocks);
+                return serializer.Serialize(chain.Blocks);
             };
         }
     }

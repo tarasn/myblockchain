@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Block.cs" />
-    <Compile Include="BlockFacade.cs" />
+    <Compile Include="SyncFacade.cs" />
     <Compile Include="Chain.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Genesis.cs" />

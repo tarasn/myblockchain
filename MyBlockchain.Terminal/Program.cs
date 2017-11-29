@@ -22,7 +22,7 @@ namespace MyBlockchain.Terminal
 
         private static void MineBlock(string obj)
         {
-            var bf = new BlockFacade();
+            var bf = new SyncFacade();
             var firstBlockCreated = new Genesis().TryGenerateFirstBlock();
             
 

@@ -73,18 +73,18 @@ namespace MyBlockchain.Tests
             Assert.IsFalse(block.IsValid());
         }
 
-        [Test]
-        public void SaveToJson()
-        {
-            var block = TestFactory.CreateBlock();
-            using (var sw = new StringWriter())
-            {
-                block.Save(sw);
-                var json = sw.ToString();
-                var desBlock = _serializer.Deserialize<Block>(json);
-                Assert.IsTrue(Block.BlockComparer.Equals(block, desBlock));
-            }
-        }
+        //[Test]
+        //public void SaveToJson()
+        //{
+        //    var block = TestFactory.CreateBlock();
+        //    using (var sw = new StringWriter())
+        //    {
+        //        block.Save(sw);
+        //        var json = sw.ToString();
+        //        var desBlock = _serializer.Deserialize<Block>(json);
+        //        Assert.IsTrue(Block.BlockComparer.Equals(block, desBlock));
+        //    }
+        //}
 
     }
 }

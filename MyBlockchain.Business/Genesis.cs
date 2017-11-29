@@ -11,11 +11,11 @@ namespace MyBlockchain.Business
     {
         public bool TryGenerateFirstBlock()
         {
-            if (!Directory.Exists(BlockFacade.DataPath))
+            if (!Directory.Exists(SyncFacade.DataPath))
             {
-                Directory.CreateDirectory(BlockFacade.DataPath);
+                Directory.CreateDirectory(SyncFacade.DataPath);
             }
-            if (!Directory.EnumerateFiles(BlockFacade.DataPath, "*.json").Any())
+            if (!Directory.EnumerateFiles(SyncFacade.DataPath, "*.json").Any())
             {
                 var firstBlock = new Block
                 {
@@ -27,7 +27,7 @@ namespace MyBlockchain.Business
                     Nonce = 0
                 };
                 MiningFacade.FindValidNonce(firstBlock);
-                BlockFacade.SaveBlock(firstBlock);
+                Block.SaveBlock(firstBlock);
                 return true;
             }
             Console.WriteLine("Chaindata dir already exists with blocks.\nIf you want to regenerate the blocks, delete /chaindata and rerun");
