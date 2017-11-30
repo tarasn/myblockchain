@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -24,23 +23,22 @@ namespace MyBlockchain.Business
             var nodeFilePathName = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                 Constants.NodesFile);
             return File.ReadAllLines(nodeFilePathName);
-        } 
-       
+        }
 
+        readonly JavaScriptSerializer _serializer = new JavaScriptSerializer();
         
-
         public Chain SyncLocal()
         {
             var chain = new Chain(Enumerable.Empty<Block>());
-            var serializer = new JavaScriptSerializer();
-            if (Directory.Exists(DataPath))
+            if (!Directory.Exists(DataPath))
             {
-                foreach (var filepath in Directory.EnumerateFiles(DataPath, "*.json"))
-                {
-                    var json = File.ReadAllText(filepath);
-                    var block = serializer.Deserialize<Block>(json);
-                    chain.AddBlock(block);
-                }
+                new Genesis().GenerateFirstBlockIfNotExist();
+            }
+            foreach (var filepath in Directory.EnumerateFiles(DataPath, "*.json"))
+            {
+                var json = File.ReadAllText(filepath);
+                var block = _serializer.Deserialize<Block>(json);
+                chain.AddBlock(block);
             }
             return chain;
         }
@@ -48,12 +46,19 @@ namespace MyBlockchain.Business
         public Chain SyncOverall()
         {
             var bestChain = SyncLocal();
-            var nodes = ReadNodes();
-            foreach (var node in nodes)
+            var nodeUrls = ReadNodes();
+            foreach (var nodeUrl in nodeUrls)
             {
-                
+                var json = Helpers.DownloadString(nodeUrl);
+                var blocks = _serializer.Deserialize<IEnumerable<Block>>(json);
+                var peerChain =  new Chain(blocks);
+                if (peerChain.IsValid() && peerChain > bestChain)
+                {
+                    bestChain = peerChain;
+                }
             }
-            throw new NotImplementedException();
+            bestChain.Save();
+            return bestChain;
         }
     }
 }
