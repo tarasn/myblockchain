@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyBlockchain.Business
 {
     public class Genesis
     {
-        public bool TryGenerateFirstBlock()
+        public Block GenerateFirstBlockIfNotExist()
         {
             if (!Directory.Exists(SyncFacade.DataPath))
             {
@@ -28,10 +25,8 @@ namespace MyBlockchain.Business
                 };
                 MiningFacade.FindValidNonce(firstBlock);
                 Block.SaveBlock(firstBlock);
-                return true;
             }
-            Console.WriteLine("Chaindata dir already exists with blocks.\nIf you want to regenerate the blocks, delete /chaindata and rerun");
-            return false;
+            return null;
         }
     }
 }

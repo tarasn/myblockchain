@@ -19,10 +19,16 @@ namespace MyBlockchain.Server
             {
                 {"h",PrintHelp },
                 {"mb",MineBlock },
+                {"s",SyncOverAll },
             };
         }
 
-        
+        private static void SyncOverAll(string obj)
+        {
+            var sf = new SyncFacade();
+            sf.SyncOverall();
+        }
+
 
         static void Main(string[] args)
         {
@@ -60,14 +66,11 @@ namespace MyBlockchain.Server
         private static void MineBlock(string obj)
         {
             var sf = new SyncFacade();
-            var firstBlockCreated = new Genesis().TryGenerateFirstBlock();
-            if (!firstBlockCreated)
-            {
-                var currentChain = sf.SyncLocal();
-                var lastBlock = currentChain.Last();
-                var minedBlock = MiningFacade.Mine(lastBlock);
-                minedBlock.Save();
-            }
+            new Genesis().GenerateFirstBlockIfNotExist();
+            var currentChain = sf.SyncLocal();
+            var lastBlock = currentChain.Last();
+            var minedBlock = MiningFacade.Mine(lastBlock);
+            minedBlock.Save();
         }
 
         private static void ExecuteCommand(string cmd)
